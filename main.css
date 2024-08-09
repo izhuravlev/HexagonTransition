@@ -1,0 +1,65 @@
+body {
+    background-color: rgb(251, 182, 182);
+    display: flex;
+    /* grid-template-columns: repeat(auto-fit, calc(var(--s) + 2*var(--mh)));
+    justify-content: center; */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    display: flex;
+    --s: 100px; /* size */
+    --m: 4px;   /* margin */
+    --f: calc(var(--s) * 1.732 + 4 * var(--m) - 1px);
+    --flag: 1;
+    --backgroundColor: calc(var(--flag) == 1 ? gold : tomato);
+    margin-bottom: 100px;
+}
+
+.grid {
+    grid-column: 1/-1;
+    font-size: 0;
+}
+
+.grid::before {
+    content: "";
+    width: calc(var(--s)/2 + var(--m));
+    float: left;
+    height: 100%;
+    shape-outside: repeating-linear-gradient(#0000 0 calc(var(--f) - 3px), #000 0 var(--f));
+}
+
+.cell {
+    width: var(--s);
+    margin: var(--m);
+    height: calc(var(--s) * 1.1547);
+    display: inline-block;
+    font-size: initial;
+    background-color: var(--backgroundColor);
+    clip-path: polygon(0% 25%, 0% 75%, 50% 100%, 100% 75%, 100% 25%, 50% 0%);
+    margin-bottom: calc(var(--m) - var(--s) * 0.2886);
+}
+
+@keyframes spin1 {
+    100% {
+        transform: rotateY(180deg);
+    }
+}
+
+.spin1 {
+    animation-name: spin1;
+    animation-duration: 500ms;
+    animation-iteration-count: 1;
+}
+
+.spinDone {
+    background-color: tomato;
+    transition: 500ms ease-in-out;
+}
+
+.preSpin {
+    background-color: gold;
+    transition: 500ms ease;
+}
