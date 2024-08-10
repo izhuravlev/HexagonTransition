@@ -8,19 +8,41 @@ body {
     align-items: center;
 }
 
-.container {
+.buttons {
     display: flex;
-    --s: 100px; /* size */
-    --m: 4px;   /* margin */
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 15px;
+}
+
+.limiter {
+    overflow: hidden;
+    width: 100vw;
+    height: 74vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    display: grid;
+    width: 100%;
+    --s: 150px; /* size */
+    --m: 1px;   /* margin */
     --f: calc(var(--s) * 1.732 + 4 * var(--m) - 1px);
-    --flag: 1;
-    --backgroundColor: calc(var(--flag) == 1 ? gold : tomato);
-    margin-bottom: 100px;
+    /* margin-bottom: calc(var(--s) * 0.1547); */
+    grid-template-columns: repeat(auto-fit,calc(var(--s) + 2*var(--m))) calc(var(--s)/2 + var(--m));
+    justify-content: flex-start;
+    transform: translateX(-75px);
+    z-index: -10;
 }
 
 .grid {
     grid-column: 1/-1;
     font-size: 0;
+    width: 120%;
 }
 
 .grid::before {
@@ -29,6 +51,7 @@ body {
     float: left;
     height: 100%;
     shape-outside: repeating-linear-gradient(#0000 0 calc(var(--f) - 3px), #000 0 var(--f));
+    margin-left: calc(-(var(--s)/2 + var(--m)));
 }
 
 .cell {
@@ -48,18 +71,60 @@ body {
     }
 }
 
+@keyframes spin2 {
+    100% {
+        transform: rotateX(180deg);
+    }
+}
+
 .spin1 {
     animation-name: spin1;
     animation-duration: 500ms;
     animation-iteration-count: 1;
 }
 
-.spinDone {
-    background-color: tomato;
-    transition: 500ms ease-in-out;
+.spin2 {
+    animation-name: spin2;
+    animation-duration: 500ms;
+    animation-iteration-count: 1;
 }
 
-.preSpin {
-    background-color: gold;
+.base { 
+    background-color: black;
+    transition: 500ms ease;
+}
+
+.color1 {
+    background-color: red;
+    transition: 500ms ease;
+}
+
+.color2 {
+    background-color: orange;
+    transition: 500ms ease;
+}
+
+.color3 {
+    background-color: yellow;
+    transition: 500ms ease;
+}
+
+.color4 {
+    background-color: green;
+    transition: 500ms ease;
+}
+
+.color5 {
+    background-color: cyan;
+    transition: 500ms ease;
+}
+
+.color6 {
+    background-color: blue;
+    transition: 500ms ease;
+}
+
+.color7 {
+    background-color: blueviolet;
     transition: 500ms ease;
 }
