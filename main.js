@@ -14,7 +14,6 @@ let bgScrollPos = limitPos.height * 1.5
 let scrollDown = false
 
 document.body.onload = prefillGrid;
-// document.body.onresize = prefillGrid;
 
 document.addEventListener("scroll", function () {
     lastKnownScrollPosition = window.scrollY;
@@ -31,26 +30,6 @@ document.addEventListener("scroll", function () {
         }
     } 
 })
-
-// // calculation functions
-// function outerWidthMargin(el) {
-//     var width = el.offsetWidth;
-//     var style = getComputedStyle(el);
-  
-//     width += parseInt(style.marginLeft) + parseInt(style.marginRight);
-//     return width;
-// }
-  
-// function width(el) {
-//     return parseFloat(getComputedStyle(el, null).width.replace("px", ""))
-// }
-  
-// function computeFirstRowItems() {
-//     const gr = document.getElementById("grid")
-//     const cl = document.getElementById("cell")
-
-//     return Math.floor(width(gr) / outerWidthMargin(cl));
-// }
 
 // fill the grid with cells
 function prefillGrid() {
@@ -130,33 +109,6 @@ async function animateVerticalFromBot() {
     }
 }
 
-// async function animateDiagonalTopRight() {
-//     let shells = document.getElementsByClassName("cell")
-//     let startCell = shells[elInRow - 1]
-    
-//     for (let i = elInRow - 1; i >= 0; i--) {
-//         let currentRow = []
-//         let count = nOfRows - i * 
-//         let centerCell = shells[count]
-//         let vertMove = elInRow
-//         let horMove = 1
-//         currentRow.push(centerCell)
-//         while (count - vertMove > 0) {
-//             currentRow.push(shells[count - vertMove])
-//             vertMove += elInRow
-//         }
-//         while ((count + horMove) % elInRow < elInRow - 1) {
-//             currentRow.push(shells[count + horMove])
-//             horMove += 1
-//         }
-//         currentRow.push(shells[count]);
-//         rows[i] = currentRow
-//     } 
-//     for (let i = 0; i < elInRow; i++) {
-//         animateRow(rows[i])
-//         await sleep(100) // wait before next wave
-//     }
-// }
 
 // animate one row
 async function animateRow(arr, className) {

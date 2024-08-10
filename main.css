@@ -2,8 +2,6 @@ body {
     background-color: rgb(228, 228, 228);
     position: relative;
     display: flex;
-    /* grid-template-columns: repeat(auto-fit, calc(var(--s) + 2*var(--mh)));
-    justify-content: center; */
     flex-direction: column;
     justify-content: center;
     align-items: center;
