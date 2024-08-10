@@ -2,21 +2,34 @@ let totalNOfElements = 0
 let elInRow = 0
 let nOfRows = 0
 let rows = []
-let sh = screen.height
-let sw = screen.width * 1.1
+let limiterDiv = document.getElementById("limiter")
+let limitPos = limiterDiv.getBoundingClientRect();
+let gridDiv = document.getElementById("grid")
+let gridPos = gridDiv.getBoundingClientRect();
+let sh = gridPos.height
+let sw = gridPos.width
+
+let elSize = sw / 10
+let bgScrollPos = limitPos.height * 1.5
+let scrollDown = false
 
 document.body.onload = prefillGrid;
 // document.body.onresize = prefillGrid;
 
-const button1 = document.getElementById("button1");
-const button2 = document.getElementById("button2");
+document.addEventListener("scroll", function () {
+    lastKnownScrollPosition = window.scrollY;
 
-button1.addEventListener("click", function () {
-    animateHor();
-})
-
-button2.addEventListener("click", function () {
-    animateVerticalFromTop();
+    if (lastKnownScrollPosition + sh * 0.5 > bgScrollPos) {
+        if (!scrollDown) {
+            scrollDown = true
+            animateVerticalFromTop()
+        }
+    } else {
+        if (scrollDown) {
+            scrollDown = false
+            animateVerticalFromBot()
+        }
+    } 
 })
 
 // // calculation functions
@@ -41,17 +54,13 @@ button2.addEventListener("click", function () {
 
 // fill the grid with cells
 function prefillGrid() {
-    elInRow = Math.floor(sw/ 150);
-    nOfRows = Math.floor(sh / (150 * 1.1547));
+    elInRow = Math.floor(sw / elSize);
+    nOfRows = 8
+    // Math.floor(sh / (elSize * 1.1547));
     let elsToAdd = 0;
     totalNOfElements = elInRow * nOfRows
-    elsToAdd = rows.length === 0 ? totalNOfElements : totalNOfElements - rows.length
-    if (rows.length === 0) {
-        elsToAdd = totalNOfElements;
-        rows = [[nOfRows]]
-    } else {
-        elsToAdd = totalNOfElements - rows.length
-    }
+    elsToAdd = totalNOfElements;
+    rows = [[nOfRows]]
     console.log("cols: " + elInRow + ", rows: " + nOfRows)
     
     let grid = document.getElementById("grid")
@@ -85,7 +94,6 @@ async function animateHor() {
 
 async function animateVerticalFromTop() {
     let shells = document.getElementsByClassName("cell")
-    console.log("Shells: " + shells)
 
     for (let i = 0; i < nOfRows; i++) {
         let currentRow = []
@@ -99,6 +107,25 @@ async function animateVerticalFromTop() {
 
     for (let i = 0; i < nOfRows; i++) {
         animateRow(rows[i], "spin2")
+        await sleep(100) // wait before next wave
+    }
+}
+
+async function animateVerticalFromBot() {
+    let shells = document.getElementsByClassName("cell")
+
+    for (let i = 0; i < nOfRows; i++) {
+        let currentRow = []
+        let startIdx = 0 + i * elInRow
+        let endIdx = elInRow - 1 + i * elInRow
+        for (let j = startIdx; j <= endIdx; j++) {
+            currentRow.push(shells[j])
+        }
+        rows[i] = currentRow
+    }
+
+    for (let i = nOfRows - 1; i >= 0; i--) {
+        animateRow(rows[i], "spin3")
         await sleep(100) // wait before next wave
     }
 }
@@ -135,12 +162,22 @@ async function animateVerticalFromTop() {
 async function animateRow(arr, className) {
     arr.forEach((el) => {
         el.classList.add(className)
-        toggleColor(el)
+        toggleColor2(el)
     })
     await sleep(500); // wait for animation
     arr.forEach((el) => {
         el.classList.remove(className)
     })
+}
+
+function toggleColor2(el) {
+    if (el.classList.contains("base")) {
+        el.classList.remove("base")
+        el.classList.add("purple")
+    } else {
+        el.classList.remove("purple")
+        el.classList.add("base")
+    }
 }
 
 // toggle colors

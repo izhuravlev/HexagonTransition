@@ -1,42 +1,69 @@
 body {
-    background-color: rgb(251, 182, 182);
+    background-color: rgb(228, 228, 228);
+    position: relative;
     display: flex;
     /* grid-template-columns: repeat(auto-fit, calc(var(--s) + 2*var(--mh)));
     justify-content: center; */
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin: 0;
 }
 
-.buttons {
+/* Foreground content */
+
+.content1 {
     display: flex;
-    flex-direction: row;
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgb(249, 70, 99);
+    margin: 0 0 100vh 0;
+    z-index: 10;
     justify-content: center;
     align-items: center;
-    padding-bottom: 15px;
 }
+
+.content2 {
+    display: flex;
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    background-color: purple;
+    z-index: 10;
+    margin: 0;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Grid Styles */
 
 .limiter {
-    overflow: hidden;
+    position: absolute;
+    top: 100vh;
+    left: 0;
     width: 100vw;
-    height: 74vh;
+    height: 100vh;
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    overflow: hidden;
 }
 
 .container {
     display: grid;
-    width: 100%;
-    --s: 150px; /* size */
+    width: 110vw;
+    height: 100vh;
+    --s: calc(110vw / 10); /* size */
     --m: 1px;   /* margin */
     --f: calc(var(--s) * 1.732 + 4 * var(--m) - 1px);
     /* margin-bottom: calc(var(--s) * 0.1547); */
     grid-template-columns: repeat(auto-fit,calc(var(--s) + 2*var(--m))) calc(var(--s)/2 + var(--m));
     justify-content: flex-start;
-    transform: translateX(-75px);
-    z-index: -10;
+    /* transform: translateX(calc(var(--s) / -2));
+    transform: translateY(calc(var(--s) * 1.1547 / -2)); */
+    transform: translate(calc(var(--s) / -2), calc(var(--s) * 1.1547 / -2))
 }
 
 .grid {
@@ -77,6 +104,12 @@ body {
     }
 }
 
+@keyframes spin3 {
+    100% {
+        transform: rotateX(-180deg);
+    }
+}
+
 .spin1 {
     animation-name: spin1;
     animation-duration: 500ms;
@@ -89,8 +122,19 @@ body {
     animation-iteration-count: 1;
 }
 
+.spin3 {
+    animation-name: spin3;
+    animation-duration: 500ms;
+    animation-iteration-count: 1;
+}
+
 .base { 
-    background-color: black;
+    background-color: rgb(249, 70, 99);
+    transition: 500ms ease;
+}
+
+.purple {
+    background-color: purple;
     transition: 500ms ease;
 }
 
